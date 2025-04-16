@@ -1,38 +1,50 @@
 #include <stdio.h>
 #include "matrix_c.h"
 
-void printMatrix(int rows, int cols, int matrix[rows][cols]) {
+
+// Print a 2D matrix stored as a 1D array using pointer arithmetic
+void printMatrix(int rows, int cols, int *matrix) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            printf("%d\t", matrix[i][j]);
+            printf("%d\t", matrix[i * cols + j]);
         }
         printf("\n");
     }
 }
 
-void scalarMultiply(int rows, int cols, int matrix[rows][cols], int scalar, int result[rows][cols]) {
+// Multiply every element in matrix by scalar and store in result
+void scalarMultiply(int rows, int cols, int *matrix, int scalar, int *result) {
     for (int i = 0; i < rows; i++)
         for (int j = 0; j < cols; j++)
-            result[i][j] = matrix[i][j] * scalar;
+            result[i * cols + j] = matrix[i * cols + j] * scalar;
 }
 
-void transposeMatrix(int rows, int cols, int matrix[rows][cols], int result[cols][rows]) {
+
+// Transpose a matrix
+void transposeMatrix(int rows, int cols, int *matrix, int *result) {
     for (int i = 0; i < rows; i++)
         for (int j = 0; j < cols; j++)
-            result[j][i] = matrix[i][j];
+            result[j * rows + i] = matrix[i * cols + j];
 }
 
-void multiplyMatrices(int r1, int c1, int m1[r1][c1], int r2, int c2, int m2[r2][c2], int result[r1][c2]) {
-    for (int i = 0; i < r1; i++)
+
+
+// Matrix multiplication
+void multiplyMatrices(int r1, int c1, int *A, int r2, int c2, int *B, int *result) {
+    for (int i = 0; i < r1; i++) {
         for (int j = 0; j < c2; j++) {
-            result[i][j] = 0;
-            for (int k = 0; k < c1; k++)
-                result[i][j] += m1[i][k] * m2[k][j];
+            result[i * c2 + j] = 0;
+            for (int k = 0; k < c1; k++) {
+                result[i * c2 + j] += A[i * c1 + k] * B[k * c2 + j];
+            }
         }
+    }
 }
 
-void addMatrices(int rows, int cols, int m1[rows][cols], int m2[rows][cols], int result[rows][cols]) {
+
+// Add two matrices of the same dimensions
+void addMatrices(int rows, int cols, int *A, int *B, int *result) {
     for (int i = 0; i < rows; i++)
         for (int j = 0; j < cols; j++)
-            result[i][j] = m1[i][j] + m2[i][j];
+            result[i * cols + j] = A[i * cols + j] + B[i * cols + j];
 }

@@ -36,7 +36,7 @@ It has been ensured that the project directory was named matrix-project during e
 ## TESTING METHODOLOGY
   Given: 
       D = A + (3*B) X C^T
-  where, A is 2X2, B is 2X3 and C is 3X2 matrix.
+  where, A is 2X2, B is 2X3 and C is 2x3 matrix (C^T is 3x2 matrix).
   1. Matrices A, B and C are initialized with given values.
   2. Matrix B is multiplied by the scalar 3.
   3. Matrix C is transposed to get C^T.
