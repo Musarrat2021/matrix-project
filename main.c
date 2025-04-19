@@ -2,29 +2,52 @@
 #include "matrix_c.h"
 
 int main() {
-    int A[] = {6, 4, 8, 3}; // 2x2
-    int B[] = {1, 2, 3, 4, 5, 6}; // 2x3
-    int C[] = {2, 4, 6, 1, 3, 5}; // 2x3
+    // 2x2 matrix A
+    int a_data[4] = {6, 4, 8, 3};
+    Matrix A = create_matrix(2, 2, a_data);
+    printf("Matrix A:\n");
+    print_matrix(A);
 
-   // Step 1: Calculate 3B
-   int B3[6]; // 2x3
-   scalarMultiply(2, 3, B, 3, B3);
+    // 2x3 matrix B
+    int b_data[6] = {1, 2, 3, 4, 5, 6};
+    Matrix B = create_matrix(2, 3, b_data);
+    printf("Matrix B:\n");
+    print_matrix(B);
 
-   // Step 2: Transpose matrix C (2x3) → CT (3x2)
-   int CT[6]; // 3x2
-   transposeMatrix(2, 3, C, CT);
+    // 2x3 matrix C
+    int c_data[6] = {2, 4, 6, 1, 3, 5};
+    Matrix C = create_matrix(2, 3, c_data);
+    printf("Matrix C:\n");
+    print_matrix(C);
 
-   // Step 3: Multiply (3B) × (C^T) → result is 2x2
-   int product[4]; // 2x2
-   multiplyMatrices(2, 3, B3, 3, 2, CT, product);
+    // 3 * B
+    Matrix B3 = scalar_multiply(B, 3);
+    printf("3 * B:\n");
+    print_matrix(B3);
 
-   // Step 4: Add A + product
-   int D[4]; // 2x2
-   addMatrices(2, 2, A, product, D);
+    // Transpose of C
+    Matrix CT = transpose(C);
+    printf("Transpose of C (C^T):\n");
+    print_matrix(CT);
 
-   // Display the result
-   printf("Matrix D = A + (3B * C^T):\n");
-   printMatrix(2, 2, D);
+    // Multiply B3 * CT
+    Matrix product = multiply(B3, CT);
+    printf("3B * C^T:\n");
+    print_matrix(product);
 
-   return 0;
+    // Add A + (3B * C^T)
+    Matrix result = add(A, product);
+    printf("A + (3B * C^T):\n");
+    print_matrix(result);
+
+    // Free all
+    free_matrix(A);
+    free_matrix(B);
+    free_matrix(C);
+    free_matrix(B3);
+    free_matrix(CT);
+    free_matrix(product);
+    free_matrix(result);
+
+    return 0;
 }

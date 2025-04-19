@@ -1,21 +1,18 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATRIX_C_H
+#define MATRIX_C_H
 
+typedef struct {
+    int rows;
+    int cols;
+    int* data;
+} Matrix;
 
-
-// Print a matrix of size rows x cols
-void printMatrix(int rows, int cols, int *matrix);
-
-// Multiply a matrix by a scalar value
-void scalarMultiply(int rows, int cols, int *matrix, int scalar, int *result);
-
-// Transpose a matrix (flip rows and columns)
-void transposeMatrix(int rows, int cols, int *matrix, int *result);
-
-// Multiply two matrices A (r1 x c1) and B (r2 x c2)
-void multiplyMatrices(int r1, int c1, int *A, int r2, int c2, int *B, int *result);
-
-// Add two matrices of the same size
-void addMatrices(int rows, int cols, int *A, int *B, int *result);
+Matrix create_matrix(int rows, int cols, const int* values);
+Matrix scalar_multiply(Matrix m, int scalar);
+Matrix add(Matrix a, Matrix b);
+Matrix multiply(Matrix a, Matrix b);
+Matrix transpose(Matrix m);
+void free_matrix(Matrix m);
+void print_matrix(Matrix m);
 
 #endif
